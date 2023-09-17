@@ -1,6 +1,5 @@
 "use client";
 
-import { Pen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,11 +17,11 @@ import { toast } from "@/components/ui/use-toast";
 import { type Database } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Pen } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, type BaseSyntheticEvent } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 
 // We use zod (z) to define a schema for the "Add/change species" form.
 // zod handles validation of the input values with methods like .string(), .nullable(). It also processes the form inputs with .transform() before the inputs are sent to the database.
@@ -59,29 +58,28 @@ type Species = Database["public"]["Tables"]["species"]["Row"];
 
 // To pass in more than one prop to this functional component
 interface CustomInputProps {
-    userId: string;
-    species: Species;
-  }
+  userId: string;
+  species: Species;
+}
 
 export default function EditSpeciesDialog(props: CustomInputProps) {
-    
-    const species = props.species;
-    const userId = props.userId;
+  const species = props.species;
+  const userId = props.userId;
 
-    // The values currently present for the species, to be displayed in the modal to be edited
-    const defaultValues: Partial<FormData> = {
-        common_name: species.common_name,
-        scientific_name: species.scientific_name,
-        description: species.description,
-        total_population: species.total_population ?? undefined,
-        image: species.image ?? undefined,
-        kingdom: species.kingdom,
-    };
+  // The values currently present for the species, to be displayed in the modal to be edited
+  const defaultValues: Partial<FormData> = {
+    common_name: species.common_name,
+    scientific_name: species.scientific_name,
+    description: species.description,
+    total_population: species.total_population ?? undefined,
+    image: species.image ?? undefined,
+    kingdom: species.kingdom,
+  };
 
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
 
-// Initialize form with the current values of the various variables
+  // Initialize form with the current values of the various variables
   const form = useForm<FormData>({
     resolver: zodResolver(speciesSchema),
     defaultValues,
@@ -121,11 +119,13 @@ export default function EditSpeciesDialog(props: CustomInputProps) {
     router.refresh();
   };
 
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="mr-2" variant="secondary"> <Pen className="mr-2" size={18}/> Edit Entry</Button>
+        <Button className="mr-2" variant="secondary">
+          {" "}
+          <Pen className="mr-2" size={18} /> Edit Entry
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[600px]">
         <DialogHeader>
@@ -160,15 +160,13 @@ export default function EditSpeciesDialog(props: CustomInputProps) {
                     <FormItem>
                       <FormLabel>Common Name</FormLabel>
                       <FormControl>
-                        <Input value={value ?? ""} placeholder="Guinea pig" 
-                        {...rest} />
+                        <Input value={value ?? ""} placeholder="Guinea pig" {...rest} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   );
                 }}
               />
-              <p>{species.kingdom}</p>
               <FormField
                 control={form.control}
                 name="kingdom"
@@ -178,7 +176,7 @@ export default function EditSpeciesDialog(props: CustomInputProps) {
                     {/* Using shadcn/ui form with enum: https://github.com/shadcn-ui/ui/issues/772 */}
                     {/* Using defaultValue is a kind of scuffed way to make sure kingdom matches previously inputted data but oh well */}
                     {/* Could not figure out why code in add-species and edit-species is different */}
-                    <Select onValueChange={(value) => field.onChange(kingdoms.parse(value))} defaultValue={species.kingdom}>
+                    <Select onValueChange={(value) => field.onChange(kingdoms.parse(value))} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select a kingdom" />

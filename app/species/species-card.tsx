@@ -17,14 +17,14 @@ import { X } from "lucide-react";
 
 import { useState } from "react";
 
-import EditSpeciesDialog from './edit-species-dialog';
+import EditSpeciesDialog from "./edit-species-dialog";
 
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
 // To pass in more than one prop to this functional component
 interface CustomInputProps {
   userId: string;
-  species:Species;
+  species: Species;
 }
 
 export default function SpeciesCard(props: CustomInputProps) {
@@ -54,9 +54,9 @@ export default function SpeciesCard(props: CustomInputProps) {
           </Button>
         </DialogTrigger>
         <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[600px]">
-          <div className="flex justify-end -my-2">
+          <div className="-my-2 flex justify-end">
             {/* <Button className="mr-2" variant="secondary"> <Pen className="mr-2" size={18}/> Edit Entry</Button> */}
-            <EditSpeciesDialog userId={userId} species={species} ></EditSpeciesDialog>
+            <EditSpeciesDialog userId={userId} species={species}></EditSpeciesDialog>
             <DialogClose>
               <button className="" aria-label="Close">
                 <X />
