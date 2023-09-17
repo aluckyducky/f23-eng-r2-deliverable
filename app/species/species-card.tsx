@@ -13,14 +13,24 @@ import {
 import type { Database } from "@/lib/schema";
 import Image from "next/image";
 
-import { X, Pen } from "lucide-react";
+import { X } from "lucide-react";
 
 import { useState } from "react";
 
+import EditSpeciesDialog from './edit-species-dialog';
+
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
-export default function SpeciesCard(species: Species) {
+// To pass in more than one prop to this functional component
+interface CustomInputProps {
+  userId: string;
+  species:Species;
+}
+
+export default function SpeciesCard(props: CustomInputProps) {
   const [open, setOpen] = useState<boolean>(false);
+  const species = props.species;
+  const userId = props.userId;
 
   // const detailed_info = ({
 
@@ -45,7 +55,8 @@ export default function SpeciesCard(species: Species) {
         </DialogTrigger>
         <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[600px]">
           <div className="flex justify-end -my-2">
-            <Button className="mr-2" variant="secondary"> <Pen className="mr-2" size={18}/> Edit Entry</Button>
+            {/* <Button className="mr-2" variant="secondary"> <Pen className="mr-2" size={18}/> Edit Entry</Button> */}
+            <EditSpeciesDialog userId={userId} species={species} ></EditSpeciesDialog>
             <DialogClose>
               <button className="" aria-label="Close">
                 <X />
