@@ -50,7 +50,12 @@ export default function SpeciesCard(species: Species) {
           </button>
         </DialogClose>
       </div>
-        <p>Hi</p>
+      {/* Stretch goal - turn into two columns, with most info on left and description on right */}
+      <h3 className="mt-2 text-2xl font-semibold">{species.common_name}</h3>
+      <h4 className="text-lg font-light italic">{species.scientific_name}</h4>
+      <p className="text-sm -my-1">Kingdom: {species.kingdom}</p>
+      <p className="text-sm -my-1">Total Population: {species.total_population}</p>
+      <p>{species.description}</p>
         
       </DialogContent>
     </Dialog>
