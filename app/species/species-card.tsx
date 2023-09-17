@@ -13,7 +13,7 @@ import {
 import type { Database } from "@/lib/schema";
 import Image from "next/image";
 
-import { X } from "lucide-react";
+import { X, Pen } from "lucide-react";
 
 import { useState } from "react";
 
@@ -44,7 +44,8 @@ export default function SpeciesCard(species: Species) {
           </Button>
         </DialogTrigger>
         <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[600px]">
-          <div style={{ display: "flex", marginTop: -10, justifyContent: "flex-end" }}>
+          <div className="flex justify-end -my-2">
+            <Button className="mr-2" variant="secondary"> <Pen className="mr-2" size={18}/> Edit Entry</Button>
             <DialogClose>
               <button className="" aria-label="Close">
                 <X />
