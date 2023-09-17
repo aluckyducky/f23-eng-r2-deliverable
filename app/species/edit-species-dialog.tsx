@@ -58,13 +58,11 @@ type Species = Database["public"]["Tables"]["species"]["Row"];
 
 // To pass in more than one prop to this functional component
 interface CustomInputProps {
-  userId: string;
   species: Species;
 }
 
 export default function EditSpeciesDialog(props: CustomInputProps) {
   const species = props.species;
-  const userId = props.userId;
 
   // The values currently present for the species, to be displayed in the modal to be edited
   const defaultValues: Partial<FormData> = {
@@ -89,9 +87,8 @@ export default function EditSpeciesDialog(props: CustomInputProps) {
   const onSubmit = async (input: FormData) => {
     // The `input` prop contains data that has already been processed by zod. We can now use it in a supabase query
     const supabase = createClientComponentClient<Database>();
-    const { error } = await supabase.from("species").insert([
+    const { error } = await supabase.from("species").update(
       {
-        author: userId,
         common_name: input.common_name,
         description: input.description,
         kingdom: input.kingdom,
@@ -99,7 +96,7 @@ export default function EditSpeciesDialog(props: CustomInputProps) {
         total_population: input.total_population,
         image: input.image,
       },
-    ]);
+    ).eq("id", species.id);
 
     if (error) {
       return toast({

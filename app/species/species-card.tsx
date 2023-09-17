@@ -56,7 +56,8 @@ export default function SpeciesCard(props: CustomInputProps) {
         <DialogContent className="max-h-screen overflow-y-auto sm:max-w-[600px]">
           <div className="-my-2 flex justify-end">
             {/* <Button className="mr-2" variant="secondary"> <Pen className="mr-2" size={18}/> Edit Entry</Button> */}
-            <EditSpeciesDialog userId={userId} species={species}></EditSpeciesDialog>
+            {/* Makes sure that the edit species button only shows up for the user that created it */}
+            {species.author === userId ? <EditSpeciesDialog species={species}></EditSpeciesDialog> : null}
             <DialogClose>
               <button className="" aria-label="Close">
                 <X />
