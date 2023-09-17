@@ -47,7 +47,7 @@ export default function SpeciesCard(props: CustomInputProps) {
       <h4 className="text-lg font-light italic">{species.scientific_name}</h4>
       <p>{species.description ? species.description.slice(0, 150).trim() + "..." : ""}</p>
       {/* Replace with detailed view */}
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={open} onOpenChange={setOpen}  >
         <DialogTrigger asChild>
           <Button className="mt-3 w-full" onClick={() => setOpen(true)}>
             Learn More
@@ -58,10 +58,10 @@ export default function SpeciesCard(props: CustomInputProps) {
             {/* <Button className="mr-2" variant="secondary"> <Pen className="mr-2" size={18}/> Edit Entry</Button> */}
             {/* Makes sure that the edit species button only shows up for the user that created it */}
             {species.author === userId ? <EditSpeciesDialog species={species}></EditSpeciesDialog> : null}
-            <DialogClose>
-              <button className="" aria-label="Close">
+            <DialogClose asChild>
+              <Button aria-label="Close" onClick={() => setOpen(false)}>
                 <X />
-              </button>
+              </Button>
             </DialogClose>
           </div>
           {/* Stretch goal - turn into two columns, with most info on left and description on right */}
