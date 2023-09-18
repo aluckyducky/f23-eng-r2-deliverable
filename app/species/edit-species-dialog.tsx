@@ -23,6 +23,8 @@ import { useState, type BaseSyntheticEvent } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import DeleteSpeciesDialog from "./delete-species-dialog";
+
 // We use zod (z) to define a schema for the "Add/change species" form.
 // zod handles validation of the input values with methods like .string(), .nullable(). It also processes the form inputs with .transform() before the inputs are sent to the database.
 
@@ -119,8 +121,7 @@ export default function EditSpeciesDialog(props: CustomInputProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="mr-2" variant="secondary">
-          {" "}
+        <Button type="button" className="mr-2" variant="secondary"  onClick={() => setOpen(true)}>
           <Pen className="mr-2" size={18} /> Edit Entry
         </Button>
       </DialogTrigger>
@@ -262,6 +263,7 @@ export default function EditSpeciesDialog(props: CustomInputProps) {
                   Cancel
                 </Button>
               </div>
+              <div className="mx-1"><DeleteSpeciesDialog species={species}/></div>
             </div>
           </form>
         </Form>
