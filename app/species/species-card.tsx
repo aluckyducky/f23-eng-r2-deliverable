@@ -1,11 +1,23 @@
 "use client";
 
-import type { Database } from "@/lib/schema";
+// import type { Database } from "@/lib/schema";
 import Image from "next/image";
 
 import DetailedSpecies from "./species-detailed";
 
-type Species = Database["public"]["Tables"]["species"]["Row"];
+// type Species = Database["public"]["Tables"]["species"]["Row"];
+interface Species {author: string;
+  common_name: string | null;
+  description: string | null;
+  id: number;
+  image: string | null;
+  kingdom: "Animalia" | "Plantae" | "Fungi" | "Protista" | "Archaea" | "Bacteria";
+  scientific_name: string;
+  total_population: number | null;
+  profiles: {
+    display_name: string;
+  } | null;
+}
 
 // To pass in more than one prop to this functional component
 interface CustomInputProps {
